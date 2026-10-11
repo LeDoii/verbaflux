@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Verbaflux · bindrune de traduction universelle</title>
+  <meta name="description" content="Exposition et entraînement à la gravure de la bindrune Verbaflux. Outil fan-made, non affilié à l'équipe d'Elixir RP.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <p class="label">Bindrune · Elixir RP · fan-made</p>
+    <h1>Verbaflux</h1>
+    <p class="sub">La bindrune de traduction universelle</p>
+    <nav class="tabs" role="tablist">
+      <button role="tab" id="tab-expo" aria-controls="expo" aria-selected="true">Exposition</button>
+      <button role="tab" id="tab-train" aria-controls="train" aria-selected="false">Entraînement</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ============================ EXPOSITION ============================ -->
+    <section id="expo" role="tabpanel" aria-labelledby="tab-expo">
+      <div class="grid2">
+        <div class="plate-wrap">
+          <canvas id="expo-canvas" width="720" height="720" aria-label="Assemblage de la bindrune Verbaflux"></canvas>
+          <div class="row center">
+            <button id="expo-replay" class="btn">Rejouer l'assemblage</button>
+          </div>
+          <ul id="expo-legend" class="legend"></ul>
+        </div>
+        <div class="text">
+          <h2>Quatre runes, un seul signe</h2>
+          <p>Le Verbaflux est une bindrune de traduction universelle. Elle fonctionne par paire : deux exemplaires
+            identiques se connectent entre eux et infusent la traduction à travers le flux de leur porteur.
+            Elle ne traduit que la parole, à courte portée, et s'active d'elle-même quand c'est nécessaire.</p>
+          <p>Quatre runes la composent : <strong>Gebo</strong>, <strong>Mannaz</strong>, <strong>Ansuz</strong>
+            et <strong>Laguz</strong>. Elles ne sont pas juxtaposées, elles partagent leurs tiges.
+            <strong>Gebo</strong>, le grand X, est à l'arrière-plan ; <strong>Mannaz</strong> forme le cadre ;
+            <strong>Ansuz</strong> et <strong>Laguz</strong> se superposent sur la tige droite de Mannaz.</p>
+          <p>Gravée sur une plaque de cuivre ciré, elle se porte en médaillon ou dans un bracelet de cuir large,
+            attaché comme une montre : la plaque s'enchâsse dans un creux de la taille du médaillon,
+            et une lèvre de cuir recouvre son bord pour la retenir.</p>
+        </div>
+      </div>
+      <figure class="wide">
+        <img src="img/objet.jpg" alt="Le médaillon au cou, le bracelet ouvert, puis le médaillon enchâssé dans le bracelet" loading="lazy">
+        <figcaption>Un seul objet, deux façons de le porter.</figcaption>
+      </figure>
+      <div class="grid2 small">
+        <figure><img src="img/medaillon.jpg" alt="Médaillon de cuivre ciré gravé de la bindrune" loading="lazy"><figcaption>Le médaillon : cuivre ciré, gravure en creux.</figcaption></figure>
+        <figure><img src="img/bracelet.jpg" alt="Bracelet de cuir, vue du dessus, médaillon retenu par la lèvre du cuir" loading="lazy"><figcaption>Le bracelet, vu du dessus : la lèvre de cuir retient le médaillon.</figcaption></figure>
+      </div>
+    </section>
+
+    <!-- ============================ ENTRAÎNEMENT ============================ -->
+    <section id="train" role="tabpanel" aria-labelledby="tab-train" hidden>
+      <div class="grid2">
+        <div class="plate-wrap">
+          <canvas id="train-canvas" width="720" height="720" aria-label="Zone de gravure"></canvas>
+          <div class="row center wrap">
+            <button id="btn-undo" class="btn ghost">Annuler le trait</button>
+            <button id="btn-clear" class="btn ghost">Tout effacer</button>
+            <button id="btn-engrave" class="btn">Graver</button>
+          </div>
+          <p id="msg" class="hint center-text" role="status"></p>
+        </div>
+        <div class="text">
+          <h2>S'entraîner à graver</h2>
+          <p>Trace la bindrune sur la plaque, d'un trait ou de plusieurs, avec la souris ou le doigt.
+            Quand tu es prêt, clique sur <em>Graver</em> : le tracé est gravé puis comparé au modèle, et tu obtiens
+            un pourcentage de précision, avec le détail pour chacune des quatre runes.</p>
+          <div class="field">
+            <label for="mode">Aide</label>
+            <select id="mode">
+              <option value="guide">Guidé : modèle visible en couleur</option>
+              <option value="faint">Estompé : modèle à peine visible</option>
+              <option value="memory">De mémoire : aucun modèle</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="check"><input type="checkbox" id="align" checked> Calage automatique (taille et position libres)</label>
+            <p class="hint">Le calage recentre et redimensionne ton tracé, sans corriger la rotation. Décoché, tu dois tracer exactement à la bonne place.</p>
+          </div>
+          <ul id="train-legend" class="legend"></ul>
+          <div id="result" class="result" hidden>
+            <div class="score"><span id="score-total">0</span><small>%</small></div>
+            <p id="score-verdict" class="verdict"></p>
+            <dl class="detail">
+              <div><dt>Couverture du modèle</dt><dd id="score-cov">0 %</dd></div>
+              <div><dt>Précision du tracé</dt><dd id="score-prec">0 %</dd></div>
+            </dl>
+            <h3>Par rune</h3>
+            <ul id="rune-bars" class="bars"></ul>
+            <p class="hint">Rouge sur la plaque : parties du modèle manquées ou traits trop éloignés. Ansuz contient entièrement Laguz (même tige, même branche haute) : tracer l'une couvre donc l'autre.</p>
+            <p class="best" id="best"></p>
+            <button id="btn-retry" class="btn ghost">Recommencer</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p><strong>Outil fan-made d'exposition et d'entraînement.</strong> Non affilié à l'équipe d'Elixir RP.
+      La bindrune présentée est un objet de background : elle n'octroie aucun bonus de jeu.</p>
+    <p class="small">Polices Italiana et Crimson Pro (licence SIL OFL). Le calcul de précision fonctionne entièrement dans ton navigateur ; rien n'est envoyé.</p>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="scoring.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
